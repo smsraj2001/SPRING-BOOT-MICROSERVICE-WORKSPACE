@@ -13,6 +13,12 @@ public class LoginController {
 		return "Your name is Sachin";
 	}
 	
+	@GetMapping("/details")
+	public String getUserDetails()
+	{
+		return "This is User Details.";
+	}
+	
 	@GetMapping("/email")
 	public String getEmail()
 	{

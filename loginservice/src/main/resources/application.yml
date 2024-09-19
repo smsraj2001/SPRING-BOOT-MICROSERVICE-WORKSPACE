@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: loginservice
+  
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+server:
+  port: 8081
