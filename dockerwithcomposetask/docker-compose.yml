@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  # MongoDB Service
+  mongo:
+    image: mongo:latest
+    container_name: mongodb-container
+    ports:
+      - "27017:27017"  # Maps MongoDB's port to the host
+    volumes:
+      - mongo-data:/data/db  # Persist data in a volume
+    networks:
+      - app-network  # Internal network for app communication
+  # Spring Boot Application Service
+  springboot-app:
+    build: .
+    container_name: dockerwithcomposetask
+    ports:
+      - "8080:8080"  # Maps Spring Boot's port to the host
+    depends_on:
+      - mongo  # Ensure MongoDB is started before Spring Boot
+    networks:
+      - app-network  # Same network to communicate with MongoDB
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27018/vehicles_db  # Environment variable for MongoDB connection
+# Volumes
+volumes:
+  mongo-data:
+# Networks
+networks:
+  app-network:
+    driver: bridge
