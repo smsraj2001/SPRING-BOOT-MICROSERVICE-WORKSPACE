@@ -20,3 +20,4 @@ spring:
             - Path=/api/pro/**
 server:
   port: 9000
+debug: true # Add this line to enable debug mode
