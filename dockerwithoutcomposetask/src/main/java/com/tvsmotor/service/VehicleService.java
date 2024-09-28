@@ -12,7 +12,7 @@ import java.util.Optional;
 public class VehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
-    // Create or Update Vehicle
+    // Create or Vehicle
     public Vehicle saveVehicle(Vehicle vehicle) {
         return vehicleRepository.save(vehicle);
     }

@@ -15,22 +15,22 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
     // Create or Update Vehicle
-    @PostMapping
+    @PostMapping("/post")
     public Vehicle addOrUpdateVehicle(@RequestBody Vehicle vehicle) {
         return vehicleService.saveVehicle(vehicle);
     }
     // Get all vehicles
-    @GetMapping
+    @GetMapping("/get")
     public List<Vehicle> getAllVehicles() {
         return vehicleService.getAllVehicles();
     }
     // Get vehicle by ID
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public Optional<Vehicle> getVehicleById(@PathVariable String id) {
         return vehicleService.getVehicleById(id);
     }
     // Update vehicle by ID
-    @PutMapping("/{id}")
+    @PutMapping("/put/{id}")
     public Vehicle updateVehicle(@PathVariable String id, @RequestBody Vehicle updatedVehicle) {
         Optional<Vehicle> vehicleOpt = vehicleService.getVehicleById(id);
         if (vehicleOpt.isPresent()) {
@@ -44,7 +44,7 @@ public class VehicleController {
         return null;  // Handle vehicle not found case
     }
     // Delete vehicle by ID
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteVehicle(@PathVariable String id) {
         vehicleService.deleteVehicle(id);
     }

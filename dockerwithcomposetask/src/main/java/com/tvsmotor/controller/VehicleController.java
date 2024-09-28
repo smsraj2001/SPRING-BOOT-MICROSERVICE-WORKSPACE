@@ -1,51 +1,49 @@
 package com.tvsmotor.controller;
 
-import com.tvsmotor.entity.Vehicle;
-import com.tvsmotor.service.VehicleService;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
+import com.tvsmotor.entity.Vehicle;
+import com.tvsmotor.repository.VehicleRepository;
 
 @RestController
-@RequestMapping("/vehicles")
+@RequestMapping("/api/veh")
 public class VehicleController {
-    @Autowired
-    private VehicleService vehicleService;
-    // Create or Update Vehicle
-    @PostMapping
-    public Vehicle addOrUpdateVehicle(@RequestBody Vehicle vehicle) {
-        return vehicleService.saveVehicle(vehicle);
-    }
-    // Get all vehicles
-    @GetMapping
-    public List<Vehicle> getAllVehicles() {
-        return vehicleService.getAllVehicles();
-    }
-    // Get vehicle by ID
-    @GetMapping("/{id}")
-    public Optional<Vehicle> getVehicleById(@PathVariable String id) {
-        return vehicleService.getVehicleById(id);
-    }
-    // Update vehicle by ID
-    @PutMapping("/{id}")
-    public Vehicle updateVehicle(@PathVariable String id, @RequestBody Vehicle updatedVehicle) {
-        Optional<Vehicle> vehicleOpt = vehicleService.getVehicleById(id);
-        if (vehicleOpt.isPresent()) {
-            Vehicle vehicle = vehicleOpt.get();
-            vehicle.setMake(updatedVehicle.getMake());
-            vehicle.setModel(updatedVehicle.getModel());
-            vehicle.setYear(updatedVehicle.getYear());
-            vehicle.setColor(updatedVehicle.getColor());
-            return vehicleService.saveVehicle(vehicle);
-        }
-        return null;  // Handle vehicle not found case
-    }
-    // Delete vehicle by ID
-    @DeleteMapping("/{id}")
-    public void deleteVehicle(@PathVariable String id) {
-        vehicleService.deleteVehicle(id);
-    }
+
+	@Autowired
+	VehicleRepository vehicleRepository;
+	
+	@GetMapping("/vehicles")
+	public List<Vehicle> viewAllVehicle()
+	{
+		return vehicleRepository.findAll();
+	}
+
+	@PostMapping("/vehicles")
+	public Vehicle addVehicle(@RequestBody Vehicle vehicle)
+	{
+		return vehicleRepository.save(vehicle);
+	}
+	
+	@DeleteMapping("/vehicles/{id}")
+	public void deleteVehicleById(@PathVariable String id )
+	{
+		vehicleRepository.deleteById(id);
+	}
+
+	@GetMapping("/vehicle/{id}")
+	public double calculatePrice(@PathVariable String id)
+	{
+		Vehicle veh=vehicleRepository.findById(id).get();
+		return veh.getPrice();
+	}
+	
 }

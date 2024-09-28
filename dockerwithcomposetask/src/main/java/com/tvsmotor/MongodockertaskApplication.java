@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DockerwithcomposetaskApplication {
+public class MongodockertaskApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DockerwithcomposetaskApplication.class, args);
+		SpringApplication.run(MongodockertaskApplication.class, args);
 	}
 
 }

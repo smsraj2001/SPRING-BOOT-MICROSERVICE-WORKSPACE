@@ -1,10 +1,14 @@
-# Use a base image that contains OpenJDK 17 (you can use any Java version you want)
-FROM openjdk:17-jdk-slim
-# Set the working directory inside the container
+# Step 1: Use an official OpenJDK image as the base image
+FROM openjdk:17-jdk-alpine
+
+# Step 2: Set the working directory inside the container
 WORKDIR /app
-# Copy the built JAR file from your host machine to the container
-COPY target/dockerwithcomposetask-0.0.1-SNAPSHOT.jar /app/dockerwithcomposetask-0.0.1-SNAPSHOT.jar
-# Expose the application port (8080 by default for Spring Boot)
+
+# Step 3: Copy the JAR file into the Docker container
+COPY target/mongodockertask-0.0.1-SNAPSHOT.jar /app/mongodockertask-0.0.1-SNAPSHOT.jar
+
+# Step 4: Expose the port that the application will run on
 EXPOSE 8080
-# Set the command to run the JAR file
-ENTRYPOINT ["java", "-jar", "/app/dockerwithcomposetask-0.0.1-SNAPSHOT.jar"]
+
+# Step 5: Specify the command to run the JAR file when the container starts
+ENTRYPOINT ["java", "-jar", "mongodockertask-0.0.1-SNAPSHOT.jar"]
