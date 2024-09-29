@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: vehicle-service
+          uri: lb://vehicle-service
+          predicates:
+            - Path=/vehicle/**
+
+        - id: stock-service
+          uri: lb://stock-service
+          predicates:
+            - Path=/stock/**
